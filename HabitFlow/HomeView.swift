@@ -1,12 +1,17 @@
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
-    @StateObject private var store = HabitStore()
+    @Environment(\.modelContext) private var modelContext
+    @Query private var habits: [Habit]
+
     @State private var showPicker = false
     @State private var celebrating = false
+    @State private var selectedHabit: Habit?
+    @State private var showDetail = false
 
     private var currentHabit: Habit? {
-        store.habits.first
+        habits.first
     }
 
     private var isCompletedToday: Bool {
@@ -43,9 +48,15 @@ struct HomeView: View {
                 }
             }
             .sheet(isPresented: $showPicker) {
-                HabitPickerView(store: store) {
-                    showPicker = false
+                HabitPickerView()
+            }
+            .navigationDestination(isPresented: $showDetail) {
+                if let habit = selectedHabit {
+                    HabitDetailView(habit: habit)
                 }
+            }
+            .onAppear {
+                syncWithCloud()
             }
         }
     }
@@ -67,63 +78,67 @@ struct HomeView: View {
             Spacer()
 
             // Main habit card
-            Button {
-                completeHabit(habit)
-            } label: {
-                VStack(spacing: 20) {
-                    // Icon
-                    ZStack {
-                        Circle()
-                            .fill(
-                                isCompletedToday
-                                    ? Color(hex: "34C759").opacity(0.2)
-                                    : habit.color.color.opacity(0.15)
-                            )
-                            .frame(width: 120, height: 120)
+            VStack(spacing: 20) {
+                // Icon
+                ZStack {
+                    Circle()
+                        .fill(
+                            isCompletedToday
+                                ? Color(hex: "34C759").opacity(0.2)
+                                : habit.color.color.opacity(0.15)
+                        )
+                        .frame(width: 120, height: 120)
 
-                        if isCompletedToday {
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 50, weight: .bold))
-                                .foregroundStyle(Color(hex: "34C759"))
-                        } else {
-                            Image(systemName: habit.icon)
-                                .font(.system(size: 50))
-                                .foregroundStyle(habit.color.color)
-                        }
-                    }
-                    .scaleEffect(celebrating ? 1.15 : 1.0)
-
-                    // Name
-                    Text(habit.name)
-                        .font(.title.bold())
-                        .foregroundStyle(.primary)
-
-                    // Streak
-                    HStack(spacing: 6) {
-                        Image(systemName: isCompletedToday ? "flame.fill" : "flame")
-                            .foregroundStyle(isCompletedToday ? Color(hex: "FF9500") : .secondary)
-
-                        Text("\(habit.streakDays) day streak")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-
-                    // Action hint
-                    if !isCompletedToday {
-                        Text("Tap to complete ✓")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .padding(.top, 8)
+                    if isCompletedToday {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 50, weight: .bold))
+                            .foregroundStyle(Color(hex: "34C759"))
+                    } else {
+                        Image(systemName: habit.icon)
+                            .font(.system(size: 50))
+                            .foregroundStyle(habit.color.color)
                     }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(40)
-                .background(
-                    RoundedRectangle(cornerRadius: 24)
-                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
-                )
+                .scaleEffect(celebrating ? 1.15 : 1.0)
+
+                // Name
+                Text(habit.name)
+                    .font(.title.bold())
+                    .foregroundStyle(.primary)
+
+                // Streak
+                HStack(spacing: 6) {
+                    Image(systemName: isCompletedToday ? "flame.fill" : "flame")
+                        .foregroundStyle(isCompletedToday ? Color(hex: "FF9500") : .secondary)
+
+                    Text("\(habit.streakDays) day streak")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+
+                // Action hint
+                if !isCompletedToday {
+                    Text("Tap to complete ✓")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 8)
+                }
             }
-            .buttonStyle(PlainButtonStyle())
+            .frame(maxWidth: .infinity)
+            .padding(40)
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(uiColor: .secondarySystemGroupedBackground))
+            )
+            .onTapGesture {
+                if !isCompletedToday {
+                    completeHabit(habit)
+                }
+            }
+            .onLongPressGesture {
+                selectedHabit = habit
+                showDetail = true
+            }
 
             Spacer()
 
@@ -209,19 +224,33 @@ struct HomeView: View {
         guard !isCompletedToday else { return }
 
         celebrating = true
-        store.completeHabit(habit)
+
+        habit.lastCompletedDate = Date()
+        habit.streakDays += 1
+
+        // Add to completed dates
+        var dates = habit.completedDates
+        dates.append(Date())
+        habit.completedDates = dates
+
+        // Sync to iCloud
+        CloudSyncManager.shared.saveHabits([HabitExport(from: habit)])
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             celebrating = false
         }
+    }
+
+    private func syncWithCloud() {
+        // Initial sync trigger
+        CloudSyncManager.shared.triggerSync()
     }
 }
 
 // MARK: - Habit Picker View
 struct HabitPickerView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var store: HabitStore
-    let onSelect: () -> Void
+    @Environment(\.modelContext) private var modelContext
 
     @State private var name = ""
     @State private var selectedIcon = "star.fill"
@@ -377,17 +406,30 @@ struct HabitPickerView: View {
     }
 
     private func saveHabit() {
-        // Clear existing and add one
-        store.habits.removeAll()
-        store.addHabit(
+        // Clear existing habits
+        let descriptor = FetchDescriptor<Habit>()
+        if let existingHabits = try? modelContext.fetch(descriptor) {
+            for h in existingHabits {
+                modelContext.delete(h)
+            }
+        }
+
+        // Add new habit
+        let habit = Habit(
             name: name.trimmingCharacters(in: .whitespaces),
             icon: selectedIcon,
             color: selectedColor
         )
+        modelContext.insert(habit)
+
+        // Sync to iCloud
+        CloudSyncManager.shared.saveHabits([HabitExport(from: habit)])
+
         dismiss()
     }
 }
 
 #Preview {
     HomeView()
+        .modelContainer(for: Habit.self, inMemory: true)
 }

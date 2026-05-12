@@ -1,23 +1,42 @@
 import SwiftUI
+import SwiftData
 
-// MARK: - Habit Model
-struct Habit: Identifiable, Codable {
-    let id: UUID
+// MARK: - Habit Model (SwiftData)
+@Model
+class Habit {
+    var id: UUID
     var name: String
     var icon: String
-    var color: HabitColor
+    var colorRaw: String
     var createdAt: Date
     var streakDays: Int
     var lastCompletedDate: Date?
+    var completedDatesData: Data?
 
     init(id: UUID = UUID(), name: String, icon: String = "star.fill", color: HabitColor = .green, createdAt: Date = Date(), streakDays: Int = 0, lastCompletedDate: Date? = nil) {
         self.id = id
         self.name = name
         self.icon = icon
-        self.color = color
+        self.colorRaw = color.rawValue
         self.createdAt = createdAt
         self.streakDays = streakDays
         self.lastCompletedDate = lastCompletedDate
+        self.completedDatesData = nil
+    }
+
+    var color: HabitColor {
+        get { HabitColor(rawValue: colorRaw) ?? .green }
+        set { colorRaw = newValue.rawValue }
+    }
+
+    var completedDates: [Date] {
+        get {
+            guard let data = completedDatesData else { return [] }
+            return (try? JSONDecoder().decode([Date].self, from: data)) ?? []
+        }
+        set {
+            completedDatesData = try? JSONEncoder().encode(newValue)
+        }
     }
 
     var isCompletedToday: Bool {
@@ -69,61 +88,6 @@ extension Color {
             blue: Double(b) / 255,
             opacity: Double(a) / 255
         )
-    }
-}
-
-// MARK: - Habit Store
-class HabitStore: ObservableObject {
-    @AppStorage("habits") private var habitsData: Data = Data()
-    @Published var habits: [Habit] = []
-
-    init() {
-        loadHabits()
-    }
-
-    func loadHabits() {
-        guard let decoded = try? JSONDecoder().decode([Habit].self, from: habitsData) else {
-            habits = []
-            return
-        }
-        habits = decoded
-    }
-
-    func saveHabits() {
-        guard let encoded = try? JSONEncoder().encode(habits) else { return }
-        habitsData = encoded
-    }
-
-    func addHabit(name: String, icon: String, color: HabitColor) {
-        let habit = Habit(name: name, icon: icon, color: color)
-        habits.append(habit)
-        saveHabits()
-    }
-
-    func completeHabit(_ habit: Habit) {
-        guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
-
-        if habit.isCompletedToday { return }
-
-        var updated = habit
-        updated.lastCompletedDate = Date()
-        updated.streakDays += 1
-        habits[index] = updated
-        saveHabits()
-    }
-
-    func deleteHabit(_ habit: Habit) {
-        habits.removeAll { $0.id == habit.id }
-        saveHabits()
-    }
-
-    func clearAllHabits() {
-        habits.removeAll()
-        saveHabits()
-    }
-
-    func resetDailyStatus() {
-        // For future use when implementing daily reset
     }
 }
 

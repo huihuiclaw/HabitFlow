@@ -9,16 +9,18 @@
 /* Begin PBXBuildFile section */
 		46BD4C69BF08741D2DF8D534 /* HabitFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061039E04CDE9DD67952271F /* HabitFlowApp.swift */; };
 		49D2B93CD20640098DE36989 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA481EBBAA4173535B6D2E57 /* Models.swift */; };
-		710B7590FAF384806512528C /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E62CDE0C6DBA1768631CA1 /* AddHabitView.swift */; };
+		8D762328D8EA4634BEC6FE0E /* HabitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */; };
+		A67E8DAC9262F734B357CA31 /* CloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */; };
 		DF38BA9523F06EFDDF3C29D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E857959E0DF383F2CAD6C3BB /* Assets.xcassets */; };
 		EE54CFB78F515F8FE53BF7BE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BDF8DBB5A006CE0C62A18 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03E62CDE0C6DBA1768631CA1 /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		061039E04CDE9DD67952271F /* HabitFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFlowApp.swift; sourceTree = "<group>"; };
 		152BDF8DBB5A006CE0C62A18 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		19C0A8F890E2DD594C08CA6C /* HabitFlow.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HabitFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncManager.swift; sourceTree = "<group>"; };
+		D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
 		DA481EBBAA4173535B6D2E57 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E857959E0DF383F2CAD6C3BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -27,8 +29,9 @@
 		0E9B503D4E6AA8E8AEDC0CC3 /* HabitFlow */ = {
 			isa = PBXGroup;
 			children = (
-				03E62CDE0C6DBA1768631CA1 /* AddHabitView.swift */,
 				E857959E0DF383F2CAD6C3BB /* Assets.xcassets */,
+				47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */,
+				D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */,
 				061039E04CDE9DD67952271F /* HabitFlowApp.swift */,
 				152BDF8DBB5A006CE0C62A18 /* HomeView.swift */,
 				DA481EBBAA4173535B6D2E57 /* Models.swift */,
@@ -123,7 +126,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				710B7590FAF384806512528C /* AddHabitView.swift in Sources */,
+				A67E8DAC9262F734B357CA31 /* CloudSyncManager.swift in Sources */,
+				8D762328D8EA4634BEC6FE0E /* HabitDetailView.swift in Sources */,
 				46BD4C69BF08741D2DF8D534 /* HabitFlowApp.swift in Sources */,
 				EE54CFB78F515F8FE53BF7BE /* HomeView.swift in Sources */,
 				49D2B93CD20640098DE36989 /* Models.swift in Sources */,
@@ -234,7 +238,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -298,7 +302,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
