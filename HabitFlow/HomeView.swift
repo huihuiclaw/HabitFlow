@@ -123,6 +123,16 @@ struct HomeView: View {
                         .foregroundStyle(.secondary)
                         .padding(.top, 8)
                 }
+
+                // Long press hint
+                HStack(spacing: 4) {
+                    Image(systemName: "hand.tap.fill")
+                        .font(.caption2)
+                    Text("Long press for details")
+                        .font(.caption2)
+                }
+                .foregroundStyle(.tertiary)
+                .padding(.top, 4)
             }
             .frame(maxWidth: .infinity)
             .padding(40)
