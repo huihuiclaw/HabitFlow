@@ -9,9 +9,13 @@ struct HomeView: View {
     @State private var celebrating = false
     @State private var selectedHabit: Habit?
     @State private var showDetail = false
+    @State private var selectedHabitId: UUID?
 
     private var currentHabit: Habit? {
-        habits.first
+        if let id = selectedHabitId {
+            return habits.first { $0.id == id }
+        }
+        return habits.first
     }
 
     private var isCompletedToday: Bool {
@@ -35,12 +39,46 @@ struct HomeView: View {
             }
             .navigationTitle("HabitFlow")
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if habits.count > 1 {
+                        Menu {
+                            ForEach(habits) { habit in
+                                Button {
+                                    selectedHabitId = habit.id
+                                } label: {
+                                    Label {
+                                        Text(habit.name)
+                                    } icon: {
+                                        if habit.id == selectedHabitId || (selectedHabitId == nil && habit.id == habits.first?.id) {
+                                            Image(systemName: "checkmark")
+                                        }
+                                    }
+                                }
+                            }
+                            Divider()
+                            Button {
+                                showPicker = true
+                            } label: {
+                                Label("Add New Habit", systemImage: "plus")
+                            }
+                        } label: {
+                            HStack(spacing: 8) {
+                                if let current = currentHabit {
+                                    Image(systemName: current.icon)
+                                    Text(current.name)
+                                }
+                                Image(systemName: "chevron.down")
+                                    .font(.caption)
+                            }
+                        }
+                    }
+                }
                 ToolbarItem(placement: .primaryAction) {
                     if currentHabit != nil {
                         Button {
                             showPicker = true
                         } label: {
-                            Image(systemName: "arrow.triangle.2.circlepath")
+                            Image(systemName: "plus.circle")
                                 .font(.title2)
                                 .foregroundStyle(Color(hex: "34C759"))
                         }
@@ -56,6 +94,9 @@ struct HomeView: View {
                 }
             }
             .onAppear {
+                if selectedHabitId == nil {
+                    selectedHabitId = habits.first?.id
+                }
                 syncWithCloud()
             }
         }
@@ -416,15 +457,7 @@ struct HabitPickerView: View {
     }
 
     private func saveHabit() {
-        // Clear existing habits
-        let descriptor = FetchDescriptor<Habit>()
-        if let existingHabits = try? modelContext.fetch(descriptor) {
-            for h in existingHabits {
-                modelContext.delete(h)
-            }
-        }
-
-        // Add new habit
+        // Add new habit (keep existing habits for history)
         let habit = Habit(
             name: name.trimmingCharacters(in: .whitespaces),
             icon: selectedIcon,
@@ -432,8 +465,9 @@ struct HabitPickerView: View {
         )
         modelContext.insert(habit)
 
-        // Sync to iCloud
-        CloudSyncManager.shared.saveHabits([HabitExport(from: habit)])
+        // Sync all habits to iCloud
+        let exportHabits = habits.map { HabitExport(from: $0) }
+        CloudSyncManager.shared.saveHabits(exportHabits)
 
         dismiss()
     }
