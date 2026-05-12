@@ -9,6 +9,9 @@ final class CloudSyncManager: ObservableObject {
     private let habitsKey = "habits_data"
     private var syncTimer: Timer?
 
+    /// App Groups UserDefaults for Widget sharing
+    private let appGroupsDefaults = UserDefaults(suiteName: "group.com.habitflow.app")
+
     @Published var lastSyncTime: Date?
 
     private init() {
@@ -76,12 +79,23 @@ final class CloudSyncManager: ObservableObject {
             let data = try JSONEncoder().encode(habits)
             kvs.set(data, forKey: habitsKey)
             kvs.synchronize()
+            updateWidgetData(with: habits)
             DispatchQueue.main.async {
                 self.lastSyncTime = Date()
             }
         } catch {
             print("❌ Failed to encode habits for iCloud: \(error)")
         }
+    }
+
+    /// Update App Groups UserDefaults for Widget
+    private func updateWidgetData(with habits: [HabitExport]) {
+        guard let defaults = appGroupsDefaults, let firstHabit = habits.first else { return }
+        defaults.set(firstHabit.name, forKey: "widget_habit_name")
+        defaults.set(firstHabit.icon, forKey: "widget_habit_icon")
+        defaults.set(firstHabit.isCompletedToday, forKey: "widget_is_completed")
+        defaults.set(firstHabit.streakDays, forKey: "widget_streak_days")
+        defaults.synchronize()
     }
 
     /// Load habits from iCloud KVS
@@ -118,5 +132,10 @@ struct HabitExport: Codable {
         self.streakDays = habit.streakDays
         self.lastCompletedDate = habit.lastCompletedDate
         self.completedDates = habit.completedDates
+    }
+
+    var isCompletedToday: Bool {
+        guard let last = lastCompletedDate else { return false }
+        return Calendar.current.isDateInToday(last)
     }
 }

@@ -16,6 +16,7 @@ settings:
     INFOPLIST_KEY_UILaunchScreen_Generation: YES
     INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
     INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+    CODE_SIGN_ENTITLEMENTS: HabitFlow/HabitFlow.entitlements
 
 targets:
   HabitFlow:
@@ -24,6 +25,8 @@ targets:
     sources:
       - path: HabitFlow
         type: group
+        excludes:
+          - "HabitFlowWidget/**"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.habitflow.app
@@ -36,3 +39,26 @@ targets:
         CODE_SIGN_IDENTITY: "-"
         CODE_SIGN_STYLE: Manual
         PROVISIONING_PROFILE_SPECIFIER: ""
+
+  HabitFlowWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: HabitFlow/HabitFlowWidget
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.habitflow.app.widget
+        INFOPLIST_FILE: HabitFlow/HabitFlowWidget/Info.plist
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0.0
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_ENTITLEMENTS: HabitFlow/HabitFlowWidget/HabitFlowWidget.entitlements
+        SKIP_INSTALL: YES
+    entitlements:
+      path: HabitFlow/HabitFlowWidget/HabitFlowWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.habitflow.app
