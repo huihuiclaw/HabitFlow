@@ -10,25 +10,77 @@
 		46BD4C69BF08741D2DF8D534 /* HabitFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061039E04CDE9DD67952271F /* HabitFlowApp.swift */; };
 		49D2B93CD20640098DE36989 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA481EBBAA4173535B6D2E57 /* Models.swift */; };
 		8D762328D8EA4634BEC6FE0E /* HabitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */; };
+		95C55AAB2FB3780600C61579 /* HabitFlowWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A67E8DAC9262F734B357CA31 /* CloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */; };
+		AABBCC001122334455667788 /* HabitFlowWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */; };
 		BDC5F4E0C81715FC65B1F7D1 /* HabitFlowWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB64FB9596F080785817B9D6 /* HabitFlowWidget.swift */; };
 		DF38BA9523F06EFDDF3C29D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E857959E0DF383F2CAD6C3BB /* Assets.xcassets */; };
 		EE54CFB78F515F8FE53BF7BE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BDF8DBB5A006CE0C62A18 /* HomeView.swift */; };
+		WidgetAssetCatalogBuildFile /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = WidgetAssetCatalog /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		95C55AAC2FB3780600C61579 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB0DFB19FCFF6478E60C593F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2AB2F45A68C0FB9D5BC99FC;
+			remoteInfo = HabitFlowWidget;
+		};
+		95C55AAF2FB3781000C61579 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB0DFB19FCFF6478E60C593F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2AB2F45A68C0FB9D5BC99FC;
+			remoteInfo = HabitFlowWidget;
+		};
+		95CB0CC82FB371EB00B2BB53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB0DFB19FCFF6478E60C593F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2AB2F45A68C0FB9D5BC99FC;
+			remoteInfo = HabitFlowWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		95C55AAE2FB3780600C61579 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				95C55AAB2FB3780600C61579 /* HabitFlowWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1B2C3D4E5F6078901A2B3C4 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstSubfolderSpec = 0;
+			files = (
+				AABBCC001122334455667788 /* HabitFlowWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		061039E04CDE9DD67952271F /* HabitFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFlowApp.swift; sourceTree = "<group>"; };
 		152BDF8DBB5A006CE0C62A18 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		19C0A8F890E2DD594C08CA6C /* HabitFlow.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HabitFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19C0A8F890E2DD594C08CA6C /* HabitFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB716D5E223220B3B6942A1 /* HabitFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitFlow.entitlements; sourceTree = "<group>"; };
 		47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncManager.swift; sourceTree = "<group>"; };
-		9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = HabitFlowWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HabitFlowWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A35A797427FFC98A9C654821 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AB64FB9596F080785817B9D6 /* HabitFlowWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFlowWidget.swift; sourceTree = "<group>"; };
 		D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
 		DA481EBBAA4173535B6D2E57 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E857959E0DF383F2CAD6C3BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD1C9769A898F8E8758F3FEA /* HabitFlowWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitFlowWidget.entitlements; sourceTree = "<group>"; };
+		WidgetAssetCatalog /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -51,10 +103,18 @@
 			children = (
 				FD1C9769A898F8E8758F3FEA /* HabitFlowWidget.entitlements */,
 				AB64FB9596F080785817B9D6 /* HabitFlowWidget.swift */,
+				WidgetAssetCatalog /* Assets.xcassets */,
 				A35A797427FFC98A9C654821 /* Info.plist */,
 			);
 			name = HabitFlowWidget;
 			path = HabitFlow/HabitFlowWidget;
+			sourceTree = "<group>";
+		};
+		95C55AAA2FB3780600C61579 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D5B27C381D6720B40DF8F15A /* Products */ = {
@@ -71,6 +131,7 @@
 			children = (
 				0E9B503D4E6AA8E8AEDC0CC3 /* HabitFlow */,
 				41E0659613DC04C64A9F7ED2 /* HabitFlowWidget */,
+				95C55AAA2FB3780600C61579 /* Frameworks */,
 				D5B27C381D6720B40DF8F15A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,10 +145,15 @@
 			buildPhases = (
 				2E3695E115921820BFC3FF6D /* Sources */,
 				C469E2D901E8F059068C0911 /* Resources */,
+				A1B2C3D4E5F6078901A2B3C4 /* Embed App Extensions */,
+				95C55AAE2FB3780600C61579 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				95CB0CC92FB371EB00B2BB53 /* PBXTargetDependency */,
+				95C55AAD2FB3780600C61579 /* PBXTargetDependency */,
+				95C55AB02FB3781000C61579 /* PBXTargetDependency */,
 			);
 			name = HabitFlow;
 			packageProductDependencies = (
@@ -101,6 +167,7 @@
 			buildConfigurationList = 8861C0A06B9EA66B4546195B /* Build configuration list for PBXNativeTarget "HabitFlowWidget" */;
 			buildPhases = (
 				460DEE138FA0F8306926A474 /* Sources */,
+				WidgetResourcesBuildPhase /* Resources */,
 			);
 			buildRules = (
 			);
@@ -121,16 +188,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-					7B34A6BFDBAA6E1912E05FCC = {
-						DevelopmentTeam = "";
-						ProvisioningStyle = Manual;
-					};
-					E2AB2F45A68C0FB9D5BC99FC = {
-						DevelopmentTeam = "";
-						ProvisioningStyle = Manual;
-					};
-				};
 			};
 			buildConfigurationList = A25CF03A293EDB15B265A89C /* Build configuration list for PBXProject "HabitFlow" */;
 			developmentRegion = en;
@@ -161,6 +218,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		WidgetResourcesBuildPhase /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				WidgetAssetCatalogBuildFile /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -186,15 +251,33 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		95C55AAD2FB3780600C61579 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E2AB2F45A68C0FB9D5BC99FC /* HabitFlowWidget */;
+			targetProxy = 95C55AAC2FB3780600C61579 /* PBXContainerItemProxy */;
+		};
+		95C55AB02FB3781000C61579 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E2AB2F45A68C0FB9D5BC99FC /* HabitFlowWidget */;
+			targetProxy = 95C55AAF2FB3781000C61579 /* PBXContainerItemProxy */;
+		};
+		95CB0CC92FB371EB00B2BB53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E2AB2F45A68C0FB9D5BC99FC /* HabitFlowWidget */;
+			targetProxy = 95CB0CC82FB371EB00B2BB53 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		10C1FB93962BC7DD0E509ACC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = HabitFlow/HabitFlowWidget/HabitFlowWidget.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 78H7A9WMGE;
 				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -202,7 +285,8 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.habitflow.app.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.app.widget;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -214,18 +298,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 78H7A9WMGE;
 				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HabitFlow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.habitflow.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -237,18 +327,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 78H7A9WMGE;
 				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HabitFlow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.habitflow.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -394,10 +490,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = HabitFlow/HabitFlowWidget/HabitFlowWidget.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 78H7A9WMGE;
 				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -405,7 +501,8 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.habitflow.app.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.app.widget;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
