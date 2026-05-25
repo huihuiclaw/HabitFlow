@@ -1,3 +1,52 @@
-
-# Build artifacts
+# Build
 build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Xcode
+## User settings
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+*.xcworkspace
+!*.xcworkspace.example
+
+## Various Xcode formats
+*.mode1v3
+*.mode2v3
+*.pbxuser
+!default.pbxuser
+*.perspectivev3
+!default.perspectivev3
+*.sheme_configuration
+project.xcworkspace
+!project.xcworkspace.example
+
+## OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+
+# SPM / Swift Package Manager
+.Swiftpm/
+Packages/Package.resolved
+
+# CocoaPods (如果你用)
+Pods/
+*.xcworkspace
+!*.xcworkspace.example
+
+# Packages
+*.xccheckout
+
+# AppCode
+.idea/
+
+# Kotlin / Firebase / Android
+.gradle/
+*.hprof
+*.heapdump
+app/build/
