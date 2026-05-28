@@ -27,7 +27,9 @@ struct Provider: TimelineProvider {
     }
 
     private func loadEntry() -> HabitEntry {
-        let defaults = UserDefaults(suiteName: "group.com.habitflow.app")
+        let defaults = UserDefaults(suiteName: "group.com.longneckdeer.habitflow")
+        print("DEBUG Widget: name = \(defaults?.string(forKey: "widget_habit_name") ?? "nil")")
+
         let name = defaults?.string(forKey: "widget_habit_name") ?? "No Habit"
         let icon = defaults?.string(forKey: "widget_habit_icon") ?? "star.fill"
         let completed = defaults?.bool(forKey: "widget_is_completed") ?? false
@@ -56,6 +58,7 @@ struct SmallWidgetView: View {
                 VStack(spacing: 8) {
                     Image(systemName: entry.habitIcon)
                         .font(.system(size: 36))
+                    
                         .foregroundStyle(.gray)
                     Text("Tap to check in")
                         .font(.caption)

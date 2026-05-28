@@ -1,4 +1,5 @@
 import Foundation
+import WidgetKit
 
 // MARK: - CloudSyncManager
 /// Singleton manager for iCloud key-value store synchronization
@@ -10,7 +11,7 @@ final class CloudSyncManager: ObservableObject {
     private var syncTimer: Timer?
 
     /// App Groups UserDefaults for Widget sharing
-    private let appGroupsDefaults = UserDefaults(suiteName: "group.com.habitflow.app")
+    private let appGroupsDefaults = UserDefaults(suiteName: "group.com.longneckdeer.habitflow")
 
     @Published var lastSyncTime: Date?
 
@@ -90,12 +91,21 @@ final class CloudSyncManager: ObservableObject {
 
     /// Update App Groups UserDefaults for Widget
     private func updateWidgetData(with habits: [HabitExport]) {
-        guard let defaults = appGroupsDefaults, let firstHabit = habits.first else { return }
+        print("DEBUG: updateWidgetData called with \(habits.count) habits")
+        guard let defaults = appGroupsDefaults, let firstHabit = habits.first else {
+            print("DEBUG: No habits or no defaults")
+            return
+        }
         defaults.set(firstHabit.name, forKey: "widget_habit_name")
         defaults.set(firstHabit.icon, forKey: "widget_habit_icon")
         defaults.set(firstHabit.isCompletedToday, forKey: "widget_is_completed")
         defaults.set(firstHabit.streakDays, forKey: "widget_streak_days")
         defaults.synchronize()
+
+        print("DEBUG: Saved widget data - name: \(firstHabit.name)")
+
+        // 刷新 widget
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     /// Load habits from iCloud KVS

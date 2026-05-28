@@ -1,0 +1,45 @@
+/* General */
+"app_name" = "HabitFlow";
+"cancel" = "Cancel";
+"save" = "Save";
+"delete" = "Delete";
+"done" = "Done";
+
+/* Home */
+"home.title" = "HabitFlow";
+"home.completed" = "Completed";
+"home.in_progress" = "In Progress";
+"home.day_streak" = "day streak";
+"home.tap_to_complete" = "Tap to complete ✓";
+"home.long_press_details" = "Long press for details";
+"home.add_new_habit" = "Add New Habit";
+"home.or_keep_current" = "or keep current and build streak";
+
+/* Empty State */
+"empty.title" = "One Habit, One Day";
+"empty.subtitle" = "Focus on a single habit\nand build it day by day";
+"empty.add_habit" = "Add Today's Habit";
+
+/* Habit Picker */
+"picker.title" = "Today's Habit";
+"picker.habit_name_placeholder" = "e.g., Morning run, Drink water...";
+"picker.what_habit_question" = "What habit do you want to build?";
+"picker.icon_label" = "Icon";
+"picker.color_label" = "Color";
+"picker.focus_today" = "Focus today";
+"picker.habit_name" = "Habit Name";
+
+/* Habit Detail */
+"detail.title" = "Habit Detail";
+"detail.current_streak" = "Current Streak";
+"detail.total_checkins" = "Total Check-ins";
+"detail.best_streak" = "Best Streak";
+"detail.last_30_days" = "Last 30 Days";
+"detail.all_checkins" = "All Check-ins";
+"detail.no_checkins_yet" = "No check-ins yet";
+"detail.delete_habit" = "Delete Habit";
+"detail.delete_confirm" = "Are you sure you want to delete \"%@\"? This action cannot be undone.";
+
+/* Days */
+"day.today" = "Today";
+"day.yesterday" = "Yesterday";

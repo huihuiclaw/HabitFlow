@@ -9,17 +9,15 @@ struct HomeView: View {
     @State private var celebrating = false
     @State private var selectedHabit: Habit?
     @State private var showDetail = false
-    @State private var selectedHabitId: UUID?
+    @State private var showCelebration = false
+    @State private var celebrationMessage = ""
+    @State private var currentPage = 0
 
-    private var currentHabit: Habit? {
-        if let id = selectedHabitId {
-            return habits.first { $0.id == id }
-        }
-        return habits.first
-    }
+    private let maxHabits = 5
 
     private var isCompletedToday: Bool {
-        currentHabit?.isCompletedToday ?? false
+        guard currentPage < habits.count else { return false }
+        return habits[currentPage].isCompletedToday
     }
 
     var body: some View {
@@ -28,53 +26,76 @@ struct HomeView: View {
                 Color(uiColor: .systemGroupedBackground)
                     .ignoresSafeArea()
 
-                VStack(spacing: 32) {
-                    if let habit = currentHabit {
-                        activeHabitView(habit)
-                    } else {
-                        emptyStateView
-                    }
-                }
-                .padding()
-            }
-            .navigationTitle("HabitFlow")
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    if habits.count > 1 {
-                        Menu {
-                            ForEach(habits) { habit in
-                                Button {
-                                    selectedHabitId = habit.id
-                                } label: {
-                                    Label {
-                                        Text(habit.name)
-                                    } icon: {
-                                        if habit.id == selectedHabitId || (selectedHabitId == nil && habit.id == habits.first?.id) {
-                                            Image(systemName: "checkmark")
-                                        }
-                                    }
-                                }
-                            }
-                            Divider()
-                            Button {
-                                showPicker = true
-                            } label: {
-                                Label("Add New Habit", systemImage: "plus")
-                            }
-                        } label: {
-                            HStack(spacing: 8) {
-                                if let current = currentHabit {
-                                    Image(systemName: current.icon)
-                                    Text(current.name)
-                                }
-                                Image(systemName: "chevron.down")
-                                    .font(.caption)
+                if habits.isEmpty {
+                    emptyStateView
+                } else {
+                    VStack(spacing: 24) {
+                        // Date header
+                        VStack(spacing: 4) {
+                            Text(dateString)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+
+                            Text(isCompletedToday ? L10n.completed : L10n.inProgress)
+                                .font(.caption)
+                                .foregroundStyle(isCompletedToday ? Color(hex: "34C759") : .secondary)
+                        }
+                        .padding(.top, 16)
+
+                        Spacer()
+
+                        // Habit cards with horizontal paging
+                        TabView(selection: $currentPage) {
+                            ForEach(Array(habits.enumerated()), id: \.element.id) { index, habit in
+                                habitCardView(habit)
+                                    .tag(index)
+                                    .padding(.horizontal, 16)
                             }
                         }
+                        .tabViewStyle(.page(indexDisplayMode: .never))
+                        .frame(maxWidth: .infinity)
+                        .animation(.easeInOut(duration: 0.4), value: currentPage)
+
+                        // Page indicator
+                        if habits.count > 1 {
+                            HStack(spacing: 8) {
+                                ForEach(0..<habits.count, id: \.self) { index in
+                                    Circle()
+                                        .fill(index == currentPage ? Color(hex: "34C759") : Color.gray.opacity(0.3))
+                                        .frame(width: 8, height: 8)
+                                }
+                            }
+                        }
+
+                        Spacer()
+
+                        // Check-in records button
+                        VStack(spacing: 12) {
+                            Button {
+                                selectedHabit = habits[currentPage]
+                                showDetail = true
+                            } label: {
+                                HStack {
+                                    Image(systemName: "list.bullet.clipboard")
+                                    Text(L10n.checkinRecords)
+                                }
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 32)
+                                .padding(.vertical, 14)
+                                .background(Color(hex: "34C759"))
+                                .clipShape(Capsule())
+                            }
+                        }
+                        .padding(.bottom, 32)
                     }
+                    .padding()
                 }
+            }
+            .navigationTitle(L10n.homeTitle)
+            .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    if currentHabit != nil {
+                    if habits.count < maxHabits {
                         Button {
                             showPicker = true
                         } label: {
@@ -88,136 +109,91 @@ struct HomeView: View {
             .sheet(isPresented: $showPicker) {
                 HabitPickerView()
             }
+            .sheet(isPresented: $showCelebration) {
+                celebrationSheet
+            }
             .navigationDestination(isPresented: $showDetail) {
                 if let habit = selectedHabit {
                     HabitDetailView(habit: habit)
                 }
             }
             .onAppear {
-                if selectedHabitId == nil {
-                    selectedHabitId = habits.first?.id
-                }
                 syncWithCloud()
             }
         }
     }
 
-    // MARK: - Active Habit View
-    private func activeHabitView(_ habit: Habit) -> some View {
-        VStack(spacing: 24) {
-            // Date header
-            VStack(spacing: 4) {
-                Text(dateString)
+    // MARK: - Habit Card View
+    private func habitCardView(_ habit: Habit) -> some View {
+        VStack(spacing: 20) {
+            // Icon
+            ZStack {
+                Circle()
+                    .fill(
+                        isCompletedToday && habit.id == habits[currentPage].id
+                            ? Color(hex: "34C759").opacity(0.2)
+                            : habit.color.color.opacity(0.15)
+                    )
+                    .frame(width: 120, height: 120)
+
+                if isCompletedToday && habit.id == habits[currentPage].id {
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 50, weight: .bold))
+                        .foregroundStyle(Color(hex: "34C759"))
+                } else {
+                    Image(systemName: habit.icon)
+                        .font(.system(size: 50))
+                        .foregroundStyle(habit.color.color)
+                }
+            }
+            .scaleEffect(celebrating ? 1.15 : 1.0)
+
+            // Name
+            Text(habit.name)
+                .font(.title.bold())
+                .foregroundStyle(.primary)
+
+            // Streak
+            HStack(spacing: 6) {
+                Image(systemName: isCompletedToday && habit.id == habits[currentPage].id ? "flame.fill" : "flame")
+                    .foregroundStyle(isCompletedToday && habit.id == habits[currentPage].id ? Color(hex: "FF9500") : .secondary)
+
+                Text("\(habit.streakDays) \(L10n.dayStreak)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-
-                Text(isCompletedToday ? "✓ Completed" : "In Progress")
-                    .font(.caption)
-                    .foregroundStyle(isCompletedToday ? Color(hex: "34C759") : .secondary)
             }
 
-            Spacer()
-
-            // Main habit card
-            VStack(spacing: 20) {
-                // Icon
-                ZStack {
-                    Circle()
-                        .fill(
-                            isCompletedToday
-                                ? Color(hex: "34C759").opacity(0.2)
-                                : habit.color.color.opacity(0.15)
-                        )
-                        .frame(width: 120, height: 120)
-
-                    if isCompletedToday {
-                        Image(systemName: "checkmark")
-                            .font(.system(size: 50, weight: .bold))
-                            .foregroundStyle(Color(hex: "34C759"))
-                    } else {
-                        Image(systemName: habit.icon)
-                            .font(.system(size: 50))
-                            .foregroundStyle(habit.color.color)
+            // Check-in button
+            if !isCompletedToday || habit.id != habits[currentPage].id {
+                Button {
+                    if !isCompletedToday && habit.id == habits[currentPage].id {
+                        showCelebrationDialog(habit)
                     }
-                }
-                .scaleEffect(celebrating ? 1.15 : 1.0)
-
-                // Name
-                Text(habit.name)
-                    .font(.title.bold())
-                    .foregroundStyle(.primary)
-
-                // Streak
-                HStack(spacing: 6) {
-                    Image(systemName: isCompletedToday ? "flame.fill" : "flame")
-                        .foregroundStyle(isCompletedToday ? Color(hex: "FF9500") : .secondary)
-
-                    Text("\(habit.streakDays) day streak")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-
-                // Action hint
-                if !isCompletedToday {
-                    Text("Tap to complete ✓")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .padding(.top, 8)
-                }
-
-                // Long press hint
-                HStack(spacing: 4) {
-                    Image(systemName: "hand.tap.fill")
-                        .font(.caption2)
-                    Text("Long press for details")
-                        .font(.caption2)
-                }
-                .foregroundStyle(.tertiary)
-                .padding(.top, 4)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(40)
-            .background(
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(Color(uiColor: .secondarySystemGroupedBackground))
-            )
-            .onTapGesture {
-                if !isCompletedToday {
-                    completeHabit(habit)
-                }
-            }
-            .onLongPressGesture {
-                selectedHabit = habit
-                showDetail = true
-            }
-
-            Spacer()
-
-            // Change habit button
-            if isCompletedToday {
-                VStack(spacing: 12) {
-                    Button {
-                        showPicker = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "plus.circle.fill")
-                            Text("Add New Habit")
-                        }
-                        .font(.headline)
+                } label: {
+                    Text(isCompletedToday ? L10n.completed : L10n.checkinButton)
+                        .font(.title3.bold())
                         .foregroundStyle(.white)
-                        .padding(.horizontal, 32)
-                        .padding(.vertical, 14)
-                        .background(Color(hex: "34C759"))
+                        .frame(width: 200, height: 56)
+                        .background(isCompletedToday ? Color.gray : Color(hex: "34C759"))
                         .clipShape(Capsule())
-                    }
-
-                    Text("or keep current and build streak")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
                 }
+                .disabled(isCompletedToday && habit.id == habits[currentPage].id)
+                .padding(.top, 8)
             }
         }
-        .overlay(celebrationParticles)
+        .frame(maxWidth: .infinity)
+        .padding(40)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(Color(uiColor: .secondarySystemGroupedBackground))
+        )
+    }
+
+    private func showCelebrationDialog(_ habit: Habit) {
+        let messages = L10n.celebrationMessages
+        celebrationMessage = messages.randomElement() ?? messages[0]
+        completeHabit(habit)
+        showCelebration = true
     }
 
     // MARK: - Empty State
@@ -230,10 +206,10 @@ struct HomeView: View {
                 .foregroundStyle(Color(hex: "34C759").gradient)
 
             VStack(spacing: 8) {
-                Text("One Habit, One Day")
+                Text(L10n.emptyTitle)
                     .font(.title2.bold())
 
-                Text("Focus on a single habit\nand build it day by day")
+                Text(L10n.emptySubtitle)
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -242,7 +218,7 @@ struct HomeView: View {
             Button {
                 showPicker = true
             } label: {
-                Label("Add Today's Habit", systemImage: "plus")
+                Label(L10n.emptyAddHabit, systemImage: "plus")
                     .font(.headline)
                     .foregroundStyle(.white)
                     .padding(.horizontal, 24)
@@ -262,6 +238,43 @@ struct HomeView: View {
             ParticleView()
                 .allowsHitTesting(false)
         }
+    }
+
+    // MARK: - Celebration Sheet
+    private var celebrationSheet: some View {
+        VStack(spacing: 24) {
+            Spacer()
+
+            Image(systemName: "star.circle.fill")
+                .font(.system(size: 80))
+                .foregroundStyle(Color(hex: "34C759").gradient)
+
+            Text(L10n.celebrationTitle)
+                .font(.title.bold())
+
+            Text(celebrationMessage)
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+
+            Spacer()
+
+            Button {
+                showCelebration = false
+            } label: {
+                Text(L10n.done)
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Color(hex: "34C759"))
+                    .clipShape(Capsule())
+            }
+            .padding(.horizontal, 32)
+            .padding(.bottom, 32)
+        }
+        .presentationDetents([.medium])
     }
 
     // MARK: - Helpers
@@ -293,7 +306,6 @@ struct HomeView: View {
     }
 
     private func syncWithCloud() {
-        // Initial sync trigger
         CloudSyncManager.shared.triggerSync()
     }
 }
@@ -335,15 +347,15 @@ struct HabitPickerView: View {
                 .padding()
             }
             .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle("Today's Habit")
+            .navigationTitle(L10n.pickerTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(L10n.cancel) { dismiss() }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { saveHabit() }
+                    Button(L10n.save) { saveHabit() }
                         .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
                         .fontWeight(.semibold)
                 }
@@ -364,11 +376,11 @@ struct HabitPickerView: View {
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(name.isEmpty ? "Habit Name" : name)
+                Text(name.isEmpty ? L10n.habitName : name)
                     .font(.headline)
                     .foregroundStyle(name.isEmpty ? .secondary : .primary)
 
-                Text("Focus today")
+                Text(L10n.focusToday)
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -382,11 +394,11 @@ struct HabitPickerView: View {
 
     private var nameSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("What habit do you want to build?")
+            Text(L10n.whatHabitQuestion)
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            TextField("e.g., Morning run, Drink water...", text: $name)
+            TextField(L10n.habitNamePlaceholder, text: $name)
                 .textFieldStyle(.plain)
                 .padding(16)
                 .background(Color(uiColor: .secondarySystemGroupedBackground))
@@ -396,7 +408,7 @@ struct HabitPickerView: View {
 
     private var iconSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Icon")
+            Text(L10n.iconLabel)
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
@@ -426,7 +438,7 @@ struct HabitPickerView: View {
 
     private var colorSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Color")
+            Text(L10n.colorLabel)
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
@@ -458,7 +470,6 @@ struct HabitPickerView: View {
     }
 
     private func saveHabit() {
-        // Add new habit (keep existing habits for history)
         let habit = Habit(
             name: name.trimmingCharacters(in: .whitespaces),
             icon: selectedIcon,

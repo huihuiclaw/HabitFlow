@@ -31,7 +31,7 @@ struct HabitDetailView: View {
             .padding()
         }
         .background(Color(uiColor: .systemGroupedBackground))
-        .navigationTitle("Habit Detail")
+        .navigationTitle(L10n.detailTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .destructiveAction) {
@@ -42,13 +42,13 @@ struct HabitDetailView: View {
                 }
             }
         }
-        .alert("Delete Habit", isPresented: $showingDeleteAlert) {
+        .alert(L10n.deleteHabit, isPresented: $showingDeleteAlert) {
             Button("Cancel", role: .cancel) { }
-            Button("Delete", role: .destructive) {
+            Button(L10n.delete, role: .destructive) {
                 deleteHabit()
             }
         } message: {
-            Text("Are you sure you want to delete \"\(habit.name)\"? This action cannot be undone.")
+            Text(L10n.deleteConfirm.replacingOccurrences(of: "%@", with: habit.name))
         }
         .onAppear {
             completedDates = habit.completedDates
@@ -74,7 +74,7 @@ struct HabitDetailView: View {
             HStack(spacing: 6) {
                 Image(systemName: "flame.fill")
                     .foregroundStyle(Color(hex: "FF9500"))
-                Text("\(habit.streakDays) day streak")
+                Text("\(habit.streakDays) \(L10n.dayStreak)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -88,9 +88,9 @@ struct HabitDetailView: View {
     // MARK: - Stats Section
     private var statsSection: some View {
         HStack(spacing: 16) {
-            statItem(value: "\(habit.streakDays)", label: "Current Streak", icon: "flame.fill", color: Color(hex: "FF9500"))
-            statItem(value: "\(completedDates.count)", label: "Total Check-ins", icon: "checkmark.circle.fill", color: habit.color.color)
-            statItem(value: streakDescription, label: "Best Streak", icon: "star.fill", color: Color(hex: "FFD60A"))
+            statItem(value: "\(habit.streakDays)", label: L10n.currentStreak, icon: "flame.fill", color: Color(hex: "FF9500"))
+            statItem(value: "\(completedDates.count)", label: L10n.totalCheckins, icon: "checkmark.circle.fill", color: habit.color.color)
+            statItem(value: streakDescription, label: L10n.bestStreak, icon: "star.fill", color: Color(hex: "FFD60A"))
         }
     }
 
@@ -132,7 +132,7 @@ struct HabitDetailView: View {
     // MARK: - Calendar Section (Last 30 Days)
     private var calendarSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Last 30 Days")
+            Text(L10n.last30Days)
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
@@ -189,12 +189,12 @@ struct HabitDetailView: View {
     // MARK: - Dates List Section
     private var datesListSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("All Check-ins")
+            Text(L10n.allCheckins)
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
             if completedDates.isEmpty {
-                Text("No check-ins yet")
+                Text(L10n.noCheckinsYet)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)

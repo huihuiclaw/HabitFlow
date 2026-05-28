@@ -9,32 +9,43 @@
 /* Begin PBXBuildFile section */
 		46BD4C69BF08741D2DF8D534 /* HabitFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061039E04CDE9DD67952271F /* HabitFlowApp.swift */; };
 		49D2B93CD20640098DE36989 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA481EBBAA4173535B6D2E57 /* Models.swift */; };
+		7B8C9D0E1F2A3B4C5D6E7F8A /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9B0C1D2E3F4A5B6C7D8E9F /* L10n.swift */; };
 		8D762328D8EA4634BEC6FE0E /* HabitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */; };
-		95C55AAB2FB3780600C61579 /* HabitFlowWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		953B38882FC2DDDB00049AB1 /* HabitFlowWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953B38852FC2DDDB00049AB1 /* HabitFlowWidget.swift */; };
+		953B38892FC2DDDB00049AB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 953B38832FC2DDDB00049AB1 /* Assets.xcassets */; };
+		953B388D2FC2DE4700049AB1 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953B388C2FC2DE4700049AB1 /* SwiftUI.framework */; };
+		953B388F2FC2DE5200049AB1 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953B388E2FC2DE5200049AB1 /* WidgetKit.framework */; };
+		9552A6C72FBA936D00C77CE7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9552A6C22FBA936D00C77CE7 /* Localizable.strings */; };
+		9552A6C82FBA936D00C77CE7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9552A6C52FBA936D00C77CE7 /* Localizable.strings */; };
+		95E265282FC2F27C00FD8D91 /* HabitFlowWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A67E8DAC9262F734B357CA31 /* CloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */; };
-		AABBCC001122334455667788 /* HabitFlowWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */; };
-		BDC5F4E0C81715FC65B1F7D1 /* HabitFlowWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB64FB9596F080785817B9D6 /* HabitFlowWidget.swift */; };
 		DF38BA9523F06EFDDF3C29D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E857959E0DF383F2CAD6C3BB /* Assets.xcassets */; };
 		EE54CFB78F515F8FE53BF7BE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152BDF8DBB5A006CE0C62A18 /* HomeView.swift */; };
-		WidgetAssetCatalogBuildFile /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = WidgetAssetCatalog /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		95C55AAC2FB3780600C61579 /* PBXContainerItemProxy */ = {
+		953B38782FC2DC6600049AB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FB0DFB19FCFF6478E60C593F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E2AB2F45A68C0FB9D5BC99FC;
 			remoteInfo = HabitFlowWidget;
 		};
-		95C55AAF2FB3781000C61579 /* PBXContainerItemProxy */ = {
+		953B38912FC2DEF000049AB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FB0DFB19FCFF6478E60C593F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E2AB2F45A68C0FB9D5BC99FC;
 			remoteInfo = HabitFlowWidget;
 		};
-		95CB0CC82FB371EB00B2BB53 /* PBXContainerItemProxy */ = {
+		953B38942FC2DEFE00049AB1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB0DFB19FCFF6478E60C593F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2AB2F45A68C0FB9D5BC99FC;
+			remoteInfo = HabitFlowWidget;
+		};
+		95E265292FC2F27C00FD8D91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FB0DFB19FCFF6478E60C593F /* Project object */;
 			proxyType = 1;
@@ -44,25 +55,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		95C55AAE2FB3780600C61579 /* Embed Foundation Extensions */ = {
+		95E2652B2FC2F27C00FD8D91 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				95C55AAB2FB3780600C61579 /* HabitFlowWidget.appex in Embed Foundation Extensions */,
+				95E265282FC2F27C00FD8D91 /* HabitFlowWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A1B2C3D4E5F6078901A2B3C4 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstSubfolderSpec = 0;
-			files = (
-				AABBCC001122334455667788 /* HabitFlowWidget.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -73,21 +74,41 @@
 		19C0A8F890E2DD594C08CA6C /* HabitFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB716D5E223220B3B6942A1 /* HabitFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitFlow.entitlements; sourceTree = "<group>"; };
 		47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncManager.swift; sourceTree = "<group>"; };
+		8A9B0C1D2E3F4A5B6C7D8E9F /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		953B38832FC2DDDB00049AB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		953B38842FC2DDDB00049AB1 /* HabitFlowWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitFlowWidget.entitlements; sourceTree = "<group>"; };
+		953B38852FC2DDDB00049AB1 /* HabitFlowWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFlowWidget.swift; sourceTree = "<group>"; };
+		953B388C2FC2DE4700049AB1 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		953B388E2FC2DE5200049AB1 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		9552A6C12FBA936D00C77CE7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		9552A6C42FBA936D00C77CE7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
+		95E2652C2FC2F55200FD8D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DE438ADC647601E6C6F4D7F /* HabitFlowWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HabitFlowWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		A35A797427FFC98A9C654821 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AB64FB9596F080785817B9D6 /* HabitFlowWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFlowWidget.swift; sourceTree = "<group>"; };
 		D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
 		DA481EBBAA4173535B6D2E57 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E857959E0DF383F2CAD6C3BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FD1C9769A898F8E8758F3FEA /* HabitFlowWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitFlowWidget.entitlements; sourceTree = "<group>"; };
-		WidgetAssetCatalog /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		953B388B2FC2DE3A00049AB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				953B388F2FC2DE5200049AB1 /* WidgetKit.framework in Frameworks */,
+				953B388D2FC2DE4700049AB1 /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0E9B503D4E6AA8E8AEDC0CC3 /* HabitFlow */ = {
 			isa = PBXGroup;
 			children = (
 				E857959E0DF383F2CAD6C3BB /* Assets.xcassets */,
+				9552A6C32FBA936D00C77CE7 /* en.lproj */,
+				9552A6C62FBA936D00C77CE7 /* zh-Hans.lproj */,
+				8A9B0C1D2E3F4A5B6C7D8E9F /* L10n.swift */,
 				47EBF212774C11D092CBA1E1 /* CloudSyncManager.swift */,
 				D4EAA9C34E0CBF17DBFD3DAC /* HabitDetailView.swift */,
 				3DB716D5E223220B3B6942A1 /* HabitFlow.entitlements */,
@@ -98,21 +119,39 @@
 			path = HabitFlow;
 			sourceTree = "<group>";
 		};
-		41E0659613DC04C64A9F7ED2 /* HabitFlowWidget */ = {
+		953B38872FC2DDDB00049AB1 /* HabitFlowWidget */ = {
 			isa = PBXGroup;
 			children = (
-				FD1C9769A898F8E8758F3FEA /* HabitFlowWidget.entitlements */,
-				AB64FB9596F080785817B9D6 /* HabitFlowWidget.swift */,
-				WidgetAssetCatalog /* Assets.xcassets */,
-				A35A797427FFC98A9C654821 /* Info.plist */,
+				95E2652C2FC2F55200FD8D91 /* Info.plist */,
+				953B38832FC2DDDB00049AB1 /* Assets.xcassets */,
+				953B38842FC2DDDB00049AB1 /* HabitFlowWidget.entitlements */,
+				953B38852FC2DDDB00049AB1 /* HabitFlowWidget.swift */,
 			);
 			name = HabitFlowWidget;
 			path = HabitFlow/HabitFlowWidget;
 			sourceTree = "<group>";
 		};
+		9552A6C32FBA936D00C77CE7 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				9552A6C22FBA936D00C77CE7 /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		9552A6C62FBA936D00C77CE7 /* zh-Hans.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				9552A6C52FBA936D00C77CE7 /* Localizable.strings */,
+			);
+			path = "zh-Hans.lproj";
+			sourceTree = "<group>";
+		};
 		95C55AAA2FB3780600C61579 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				953B388E2FC2DE5200049AB1 /* WidgetKit.framework */,
+				953B388C2FC2DE4700049AB1 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,8 +168,8 @@
 		DF0A7B184730883B4B5FD6EE = {
 			isa = PBXGroup;
 			children = (
+				953B38872FC2DDDB00049AB1 /* HabitFlowWidget */,
 				0E9B503D4E6AA8E8AEDC0CC3 /* HabitFlow */,
-				41E0659613DC04C64A9F7ED2 /* HabitFlowWidget */,
 				95C55AAA2FB3780600C61579 /* Frameworks */,
 				D5B27C381D6720B40DF8F15A /* Products */,
 			);
@@ -145,15 +184,15 @@
 			buildPhases = (
 				2E3695E115921820BFC3FF6D /* Sources */,
 				C469E2D901E8F059068C0911 /* Resources */,
-				A1B2C3D4E5F6078901A2B3C4 /* Embed App Extensions */,
-				95C55AAE2FB3780600C61579 /* Embed Foundation Extensions */,
+				95E2652B2FC2F27C00FD8D91 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				95CB0CC92FB371EB00B2BB53 /* PBXTargetDependency */,
-				95C55AAD2FB3780600C61579 /* PBXTargetDependency */,
-				95C55AB02FB3781000C61579 /* PBXTargetDependency */,
+				953B38792FC2DC6600049AB1 /* PBXTargetDependency */,
+				953B38922FC2DEF000049AB1 /* PBXTargetDependency */,
+				953B38952FC2DEFE00049AB1 /* PBXTargetDependency */,
+				95E2652A2FC2F27C00FD8D91 /* PBXTargetDependency */,
 			);
 			name = HabitFlow;
 			packageProductDependencies = (
@@ -168,6 +207,7 @@
 			buildPhases = (
 				460DEE138FA0F8306926A474 /* Sources */,
 				WidgetResourcesBuildPhase /* Resources */,
+				953B388B2FC2DE3A00049AB1 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -187,7 +227,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2640;
 			};
 			buildConfigurationList = A25CF03A293EDB15B265A89C /* Build configuration list for PBXProject "HabitFlow" */;
 			developmentRegion = en;
@@ -195,6 +235,7 @@
 			knownRegions = (
 				Base,
 				en,
+				"zh-Hans",
 			);
 			mainGroup = DF0A7B184730883B4B5FD6EE;
 			minimizedProjectReferenceProxies = 1;
@@ -214,6 +255,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9552A6C72FBA936D00C77CE7 /* Localizable.strings in Resources */,
+				9552A6C82FBA936D00C77CE7 /* Localizable.strings in Resources */,
 				DF38BA9523F06EFDDF3C29D6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,7 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				WidgetAssetCatalogBuildFile /* Assets.xcassets in Resources */,
+				953B38892FC2DDDB00049AB1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +281,7 @@
 				46BD4C69BF08741D2DF8D534 /* HabitFlowApp.swift in Sources */,
 				EE54CFB78F515F8FE53BF7BE /* HomeView.swift in Sources */,
 				49D2B93CD20640098DE36989 /* Models.swift in Sources */,
+				7B8C9D0E1F2A3B4C5D6E7F8A /* L10n.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,29 +289,53 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDC5F4E0C81715FC65B1F7D1 /* HabitFlowWidget.swift in Sources */,
+				953B38882FC2DDDB00049AB1 /* HabitFlowWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		95C55AAD2FB3780600C61579 /* PBXTargetDependency */ = {
+		953B38792FC2DC6600049AB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E2AB2F45A68C0FB9D5BC99FC /* HabitFlowWidget */;
-			targetProxy = 95C55AAC2FB3780600C61579 /* PBXContainerItemProxy */;
+			targetProxy = 953B38782FC2DC6600049AB1 /* PBXContainerItemProxy */;
 		};
-		95C55AB02FB3781000C61579 /* PBXTargetDependency */ = {
+		953B38922FC2DEF000049AB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E2AB2F45A68C0FB9D5BC99FC /* HabitFlowWidget */;
-			targetProxy = 95C55AAF2FB3781000C61579 /* PBXContainerItemProxy */;
+			targetProxy = 953B38912FC2DEF000049AB1 /* PBXContainerItemProxy */;
 		};
-		95CB0CC92FB371EB00B2BB53 /* PBXTargetDependency */ = {
+		953B38952FC2DEFE00049AB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E2AB2F45A68C0FB9D5BC99FC /* HabitFlowWidget */;
-			targetProxy = 95CB0CC82FB371EB00B2BB53 /* PBXContainerItemProxy */;
+			targetProxy = 953B38942FC2DEFE00049AB1 /* PBXContainerItemProxy */;
+		};
+		95E2652A2FC2F27C00FD8D91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E2AB2F45A68C0FB9D5BC99FC /* HabitFlowWidget */;
+			targetProxy = 95E265292FC2F27C00FD8D91 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9552A6C22FBA936D00C77CE7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9552A6C12FBA936D00C77CE7 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		9552A6C52FBA936D00C77CE7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9552A6C42FBA936D00C77CE7 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		10C1FB93962BC7DD0E509ACC /* Debug */ = {
@@ -277,8 +345,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 78H7A9WMGE;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HabitFlow;
+				INSTALL_PATH = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,11 +368,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78H7A9WMGE;
-				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HabitFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -310,6 +380,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,6 +390,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -327,11 +400,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78H7A9WMGE;
-				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HabitFlow;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -339,14 +412,17 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -355,6 +431,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -387,8 +464,10 @@
 				CODE_SIGN_ENTITLEMENTS = HabitFlow/HabitFlow.entitlements;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 78H7A9WMGE;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -413,8 +492,10 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.9;
@@ -426,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -458,8 +540,10 @@
 				CODE_SIGN_ENTITLEMENTS = HabitFlow/HabitFlow.entitlements;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 78H7A9WMGE;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -477,8 +561,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.9;
@@ -494,14 +580,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78H7A9WMGE;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitFlow/HabitFlowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HabitFlow;
+				INSTALL_PATH = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.app.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longneckdeer.habitflow.widget;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

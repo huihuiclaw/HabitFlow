@@ -1,0 +1,55 @@
+/* General */
+"app_name" = "HabitFlow";
+"cancel" = "Cancel";
+"save" = "Save";
+"delete" = "Delete";
+"done" = "Done";
+"max_habits_reached" = "Maximum of %d habits reached";
+
+/* Home */
+"home.title" = "HabitFlow";
+"home.completed" = "Completed";
+"home.in_progress" = "In Progress";
+"home.day_streak" = "day streak";
+"home.tap_to_complete" = "Tap to complete ✓";
+"home.long_press_details" = "Long press for details";
+"home.add_new_habit" = "Add New Habit";
+"home.or_keep_current" = "or keep current and build streak";
+
+/* Empty State */
+"empty.title" = "One Habit, One Day";
+"empty.subtitle" = "Focus on a single habit\nand build it day by day";
+"empty.add_habit" = "Add Today's Habit";
+
+/* Habit Picker */
+"picker.title" = "Today's Habit";
+"picker.habit_name_placeholder" = "e.g., Morning run, Drink water...";
+"picker.what_habit_question" = "What habit do you want to build?";
+"picker.icon_label" = "Icon";
+"picker.color_label" = "Color";
+"picker.focus_today" = "Focus today";
+"picker.habit_name" = "Habit Name";
+
+/* Habit Detail */
+"detail.title" = "Habit Detail";
+"detail.checkin_records" = "Check-in Records";
+"checkin.button" = "Check In";
+"celebration.title" = "Great Job! 🎉";
+"celebration.message.1" = "You've made progress today! Every step counts.";
+"celebration.message.2" = "Consistency is key! You're building a great habit.";
+"celebration.message.3" = "Amazing! You're one step closer to your goal.";
+"celebration.message.4" = "Fantastic work! Keep up the momentum!";
+"celebration.message.5" = "You're doing great! Small wins lead to big results.";
+"celebration.message.6" = "Awesome! Today you showed up for yourself.";
+"detail.current_streak" = "Current Streak";
+"detail.total_checkins" = "Total Check-ins";
+"detail.best_streak" = "Best Streak";
+"detail.last_30_days" = "Last 30 Days";
+"detail.all_checkins" = "All Check-ins";
+"detail.no_checkins_yet" = "No check-ins yet";
+"detail.delete_habit" = "Delete Habit";
+"detail.delete_confirm" = "Are you sure you want to delete \"%@\"? This action cannot be undone.";
+
+/* Days */
+"day.today" = "Today";
+"day.yesterday" = "Yesterday";

@@ -1,0 +1,55 @@
+/* General */
+"app_name" = "打卡精灵";
+"cancel" = "取消";
+"save" = "保存";
+"delete" = "删除";
+"done" = "完成";
+"max_habits_reached" = "最多只能创建 %d 个习惯";
+
+/* Home */
+"home.title" = "HabitFlow";
+"home.completed" = "已完成";
+"home.in_progress" = "进行中";
+"home.day_streak" = "天连续";
+"home.tap_to_complete" = "点击完成 ✓";
+"home.long_press_details" = "长按查看详情";
+"home.add_new_habit" = "添加新习惯";
+"home.or_keep_current" = "或继续当前习惯，保持连续";
+
+/* Empty State */
+"empty.title" = "一个习惯，一天一步";
+"empty.subtitle" = "专注于一个习惯\n每天积累";
+"empty.add_habit" = "添加今日习惯";
+
+/* Habit Picker */
+"picker.title" = "今日习惯";
+"picker.habit_name_placeholder" = "例如：晨跑、喝水...";
+"picker.what_habit_question" = "你想培养什么习惯？";
+"picker.icon_label" = "图标";
+"picker.color_label" = "颜色";
+"picker.focus_today" = "今日专注";
+"picker.habit_name" = "习惯名称";
+
+/* Habit Detail */
+"detail.title" = "习惯详情";
+"detail.checkin_records" = "打卡记录";
+"checkin.button" = "打卡";
+"celebration.title" = "太棒了！🎉";
+"celebration.message.1" = "你今天又进步了！每一步都算数。";
+"celebration.message.2" = "坚持就是胜利！你正在养成一个好习惯。";
+"celebration.message.3" = "太厉害了！离目标又近了一步。";
+"celebration.message.4" = "继续保持！你已经做得很好了。";
+"celebration.message.5" = "太棒了！小进步会带来大改变。";
+"celebration.message.6" = "优秀！今天你为自己迈出了一步。";
+"detail.current_streak" = "当前连续";
+"detail.total_checkins" = "总打卡次数";
+"detail.best_streak" = "最佳连续";
+"detail.last_30_days" = "最近30天";
+"detail.all_checkins" = "所有打卡记录";
+"detail.no_checkins_yet" = "暂无打卡记录";
+"detail.delete_habit" = "删除习惯";
+"detail.delete_confirm" = "确定要删除「%@」吗？此操作无法撤销。";
+
+/* Days */
+"day.today" = "今天";
+"day.yesterday" = "昨天";
