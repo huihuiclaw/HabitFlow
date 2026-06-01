@@ -1,0 +1,6 @@
+/* Widget */
+"widget.app_name" = "HabitFlow";
+"widget.no_habit" = "今日无习惯";
+"widget.completed" = "已完成";
+"widget.tap_to_checkin" = "点击打卡";
+"home.day_streak" = "天连续";

@@ -1,0 +1,6 @@
+/* Widget */
+"widget.app_name" = "HabitFlow";
+"widget.no_habit" = "No habit today";
+"widget.completed" = "Completed";
+"widget.tap_to_checkin" = "Tap to check in";
+"home.day_streak" = "day streak";

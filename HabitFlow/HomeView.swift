@@ -54,7 +54,6 @@ struct HomeView: View {
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                         .frame(maxWidth: .infinity)
-                        .animation(.easeInOut(duration: 0.4), value: currentPage)
 
                         // Page indicator
                         if habits.count > 1 {

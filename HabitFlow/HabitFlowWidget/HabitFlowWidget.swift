@@ -30,7 +30,7 @@ struct Provider: TimelineProvider {
         let defaults = UserDefaults(suiteName: "group.com.longneckdeer.habitflow")
         print("DEBUG Widget: name = \(defaults?.string(forKey: "widget_habit_name") ?? "nil")")
 
-        let name = defaults?.string(forKey: "widget_habit_name") ?? "No Habit"
+        let name = defaults?.string(forKey: "widget_habit_name") ?? String(localized: "widget.no_habit")
         let icon = defaults?.string(forKey: "widget_habit_icon") ?? "star.fill"
         let completed = defaults?.bool(forKey: "widget_is_completed") ?? false
         let streak = defaults?.integer(forKey: "widget_streak_days") ?? 0
@@ -49,7 +49,7 @@ struct SmallWidgetView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 40))
                         .foregroundStyle(.white)
-                    Text("✓ Done")
+                    Text(String(localized: "✓ Done"))
                         .font(.headline)
                         .foregroundStyle(.white)
                 }
@@ -58,9 +58,9 @@ struct SmallWidgetView: View {
                 VStack(spacing: 8) {
                     Image(systemName: entry.habitIcon)
                         .font(.system(size: 36))
-                    
+
                         .foregroundStyle(.gray)
-                    Text("Tap to check in")
+                    Text(String(localized: "widget.tap_to_checkin"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -90,11 +90,11 @@ struct MediumWidgetView: View {
                 HStack(spacing: 4) {
                     Image(systemName: "flame.fill")
                         .foregroundStyle(entry.isCompleted ? Color(hex: "FF9500") : .gray)
-                    Text("\(entry.streakDays) day streak")
+                    Text(String(localized: "home.day_streak") + " \(entry.streakDays)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
-                Text(entry.isCompleted ? "✓ Completed today" : "⏳ Not completed yet")
+                Text(entry.isCompleted ? String(localized: "widget.completed") : String(localized: "widget.no_habit"))
                     .font(.caption)
                     .foregroundStyle(entry.isCompleted ? Color(hex: "34C759") : .secondary)
             }
