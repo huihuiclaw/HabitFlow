@@ -72,4 +72,9 @@ struct L10n {
     // Days
     static var dayToday: String { "day.today".localized() }
     static var dayYesterday: String { "day.yesterday".localized() }
+
+    // Check-in
+    static func checkinCountToday(_ count: Int) -> String {
+        String(format: "checkin.count_today".localized(), count)
+    }
 }

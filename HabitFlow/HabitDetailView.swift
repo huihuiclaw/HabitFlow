@@ -72,9 +72,9 @@ struct HabitDetailView: View {
                 .font(.title2.bold())
 
             HStack(spacing: 6) {
-                Image(systemName: "flame.fill")
-                    .foregroundStyle(Color(hex: "FF9500"))
-                Text("\(habit.streakDays) \(L10n.dayStreak)")
+                Image(systemName: habit.checkinCountToday > 0 ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(habit.checkinCountToday > 0 ? Color(hex: "34C759") : .secondary)
+                Text("今日打卡 \(habit.checkinCountToday) 次")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -88,9 +88,9 @@ struct HabitDetailView: View {
     // MARK: - Stats Section
     private var statsSection: some View {
         HStack(spacing: 16) {
-            statItem(value: "\(habit.streakDays)", label: L10n.currentStreak, icon: "flame.fill", color: Color(hex: "FF9500"))
-            statItem(value: "\(completedDates.count)", label: L10n.totalCheckins, icon: "checkmark.circle.fill", color: habit.color.color)
-            statItem(value: streakDescription, label: L10n.bestStreak, icon: "star.fill", color: Color(hex: "FFD60A"))
+            statItem(value: "\(habit.checkinCountToday)", label: "今日打卡", icon: "hand.tap.fill", color: Color(hex: "34C759"))
+            statItem(value: formatTotalStats(), label: "累计", icon: "chart.bar.fill", color: habit.color.color)
+            statItem(value: streakDescription, label: L10n.bestStreak, icon: "flame.fill", color: Color(hex: "FF9500"))
         }
     }
 
@@ -110,6 +110,22 @@ struct HabitDetailView: View {
             }
         }
         return "\(maxStreak)"
+    }
+
+    private func formatTotalStats() -> String {
+        let total = completedDates.count
+        if habit.goalUnit.isCountType {
+            switch habit.goalUnit {
+            case .piece:
+                return "\(total) 次"
+            case .group:
+                return "\(total) 组"
+            default:
+                return "\(total) 次"
+            }
+        } else {
+            return "\(total) 次"
+        }
     }
 
     private func statItem(value: String, label: String, icon: String, color: Color) -> some View {
@@ -226,6 +242,23 @@ struct HabitDetailView: View {
                 .background(Color(uiColor: .secondarySystemGroupedBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
+
+            // Delete Button
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                HStack {
+                    Image(systemName: "trash")
+                    Text(L10n.deleteHabit)
+                }
+                .font(.headline)
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(Color.red)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .padding(.top, 24)
         }
     }
 

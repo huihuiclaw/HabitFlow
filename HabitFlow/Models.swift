@@ -1,6 +1,24 @@
 import SwiftUI
 import SwiftData
 
+// MARK: - Goal Unit
+enum HabitGoalUnit: String, Codable, CaseIterable {
+    // Count units
+    case piece = "piece"     // 次
+    case group = "group"     // 组
+    // Duration units
+    case minute = "minute"   // 分钟
+    case second = "second"   // 秒
+
+    var isCountType: Bool {
+        self == .piece || self == .group
+    }
+
+    var isDurationType: Bool {
+        self == .minute || self == .second
+    }
+}
+
 // MARK: - Habit Model (SwiftData)
 @Model
 class Habit {
@@ -12,8 +30,10 @@ class Habit {
     var streakDays: Int
     var lastCompletedDate: Date?
     var completedDatesData: Data?
+    var goalTarget: Int
+    var goalUnitRaw: String
 
-    init(id: UUID = UUID(), name: String, icon: String = "star.fill", color: HabitColor = .green, createdAt: Date = Date(), streakDays: Int = 0, lastCompletedDate: Date? = nil) {
+    init(id: UUID = UUID(), name: String, icon: String = "star.fill", color: HabitColor = .green, createdAt: Date = Date(), streakDays: Int = 0, lastCompletedDate: Date? = nil, goalTarget: Int = 1, goalUnit: HabitGoalUnit = .piece) {
         self.id = id
         self.name = name
         self.icon = icon
@@ -22,11 +42,32 @@ class Habit {
         self.streakDays = streakDays
         self.lastCompletedDate = lastCompletedDate
         self.completedDatesData = nil
+        self.goalTarget = goalTarget
+        self.goalUnitRaw = goalUnit.rawValue
     }
 
     var color: HabitColor {
         get { HabitColor(rawValue: colorRaw) ?? .green }
         set { colorRaw = newValue.rawValue }
+    }
+
+    var goalUnit: HabitGoalUnit {
+        get { HabitGoalUnit(rawValue: goalUnitRaw) ?? .piece }
+        set { goalUnitRaw = newValue.rawValue }
+    }
+
+    /// Get actual target value considering unit
+    var effectiveGoalTarget: Int {
+        return goalTarget
+    }
+
+    var goalUnitDisplay: String {
+        switch goalUnit {
+        case .piece: return "次"
+        case .group: return "组"
+        case .minute: return "分钟"
+        case .second: return "秒"
+        }
     }
 
     var completedDates: [Date] {
@@ -42,6 +83,20 @@ class Habit {
     var isCompletedToday: Bool {
         guard let last = lastCompletedDate else { return false }
         return Calendar.current.isDateInToday(last)
+    }
+
+    var checkinCountToday: Int {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        return completedDates.filter { calendar.isDate($0, inSameDayAs: today) }.count
+    }
+
+    var isGoalCompletedToday: Bool {
+        if goalUnit.isCountType {
+            return checkinCountToday >= effectiveGoalTarget
+        } else {
+            return false // TODO: implement duration tracking
+        }
     }
 }
 

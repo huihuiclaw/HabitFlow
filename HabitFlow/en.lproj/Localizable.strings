@@ -53,3 +53,6 @@
 /* Days */
 "day.today" = "Today";
 "day.yesterday" = "Yesterday";
+
+/* Check-in */
+"checkin.count_today" = "%dx today";

@@ -1,17 +1,25 @@
 import WidgetKit
 import SwiftUI
 
+struct HabitInfo: Identifiable, Codable {
+    let id: String
+    let name: String
+    let icon: String
+    let isCompleted: Bool
+}
+
 struct HabitEntry: TimelineEntry {
     let date: Date
-    let habitName: String
-    let habitIcon: String
-    let isCompleted: Bool
-    let streakDays: Int
+    let habits: [HabitInfo]
 }
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> HabitEntry {
-        HabitEntry(date: Date(), habitName: "Reading", habitIcon: "book.fill", isCompleted: false, streakDays: 7)
+        HabitEntry(date: Date(), habits: [
+            HabitInfo(id: "1", name: "Reading", icon: "book.fill", isCompleted: true),
+            HabitInfo(id: "2", name: "Running", icon: "figure.run", isCompleted: false),
+            HabitInfo(id: "3", name: "Water", icon: "drop.fill", isCompleted: false)
+        ])
     }
 
     func getSnapshot(in context: Context, completion: @escaping (HabitEntry) -> Void) {
@@ -28,44 +36,88 @@ struct Provider: TimelineProvider {
 
     private func loadEntry() -> HabitEntry {
         let defaults = UserDefaults(suiteName: "group.com.longneckdeer.habitflow")
-        print("DEBUG Widget: name = \(defaults?.string(forKey: "widget_habit_name") ?? "nil")")
 
-        let name = defaults?.string(forKey: "widget_habit_name") ?? String(localized: "widget.no_habit")
-        let icon = defaults?.string(forKey: "widget_habit_icon") ?? "star.fill"
-        let completed = defaults?.bool(forKey: "widget_is_completed") ?? false
-        let streak = defaults?.integer(forKey: "widget_streak_days") ?? 0
-        return HabitEntry(date: Date(), habitName: name, habitIcon: icon, isCompleted: completed, streakDays: streak)
+        var habits: [HabitInfo] = []
+
+        if let data = defaults?.data(forKey: "widget_habits"),
+           let decoded = try? JSONDecoder().decode([HabitInfo].self, from: data) {
+            print("DEBUG Widget: Found \(decoded.count) habits in widget_habits")
+            habits = Array(decoded.prefix(3))
+        } else {
+            print("DEBUG Widget: No widget_habits data found, checking fallback")
+            // Fallback single habit for backwards compatibility
+            let name = defaults?.string(forKey: "widget_habit_name") ?? String(localized: "widget.no_habit")
+            let icon = defaults?.string(forKey: "widget_habit_icon") ?? "star.fill"
+            let completed = defaults?.bool(forKey: "widget_is_completed") ?? false
+            print("DEBUG Widget: Fallback - name=\(name), completed=\(completed)")
+            habits = [HabitInfo(id: "0", name: name, icon: icon, isCompleted: completed)]
+        }
+
+        return HabitEntry(date: Date(), habits: habits)
     }
 }
 
 struct SmallWidgetView: View {
     var entry: HabitEntry
 
-    var body: some View {
-        ZStack {
-            if entry.isCompleted {
-                LinearGradient(gradient: Gradient(colors: [Color(hex: "34C759"), Color(hex: "30D158")]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                VStack(spacing: 8) {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 40))
-                        .foregroundStyle(.white)
-                    Text(String(localized: "✓ Done"))
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                }
-            } else {
-                Color(uiColor: .systemGray5)
-                VStack(spacing: 8) {
-                    Image(systemName: entry.habitIcon)
-                        .font(.system(size: 36))
+    private var completedCount: Int {
+        entry.habits.filter { $0.isCompleted }.count
+    }
 
-                        .foregroundStyle(.gray)
-                    Text(String(localized: "widget.tap_to_checkin"))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+    private var totalCount: Int {
+        entry.habits.count
+    }
+
+    var body: some View {
+        VStack(spacing: 8) {
+            // Header
+            HStack {
+                Text(String(localized: "widget.app_name"))
+                    .font(.caption.bold())
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Text("\(completedCount)/\(totalCount)")
+                    .font(.caption.bold())
+                    .foregroundStyle(completedCount == totalCount ? Color(hex: "34C759") : .secondary)
+            }
+
+            // Habits list
+            VStack(spacing: 6) {
+                ForEach(entry.habits.prefix(3)) { habit in
+                    HStack(spacing: 8) {
+                        Image(systemName: habit.icon)
+                            .font(.system(size: 14))
+                            .foregroundStyle(habit.isCompleted ? Color(hex: "34C759") : .gray)
+                            .frame(width: 20)
+
+                        Text(habit.name)
+                            .font(.caption)
+                            .foregroundStyle(.primary)
+                            .lineLimit(1)
+
+                        Spacer()
+
+                        if habit.isCompleted {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 14))
+                                .foregroundStyle(Color(hex: "34C759"))
+                        } else {
+                            Image(systemName: "circle")
+                                .font(.system(size: 14))
+                                .foregroundStyle(.gray.opacity(0.5))
+                        }
+                    }
                 }
             }
+
+            Spacer()
+
+            // Footer status
+            Text(completedCount == totalCount ? String(localized: "widget.all_completed") : String(localized: "widget.tap_to_checkin"))
+                .font(.caption2)
+                .foregroundStyle(.secondary)
         }
+        .padding(12)
         .containerBackground(.fill, for: .widget)
     }
 }
@@ -77,26 +129,21 @@ struct MediumWidgetView: View {
         HStack(spacing: 20) {
             ZStack {
                 Circle()
-                    .fill(entry.isCompleted ? Color(hex: "34C759").opacity(0.2) : Color.gray.opacity(0.15))
+                    .fill(Color(hex: "34C759").opacity(0.2))
                     .frame(width: 60, height: 60)
-                Image(systemName: entry.isCompleted ? "checkmark" : entry.habitIcon)
+                Image(systemName: "checkmark")
                     .font(.system(size: 28))
-                    .foregroundStyle(entry.isCompleted ? Color(hex: "34C759") : .gray)
+                    .foregroundStyle(Color(hex: "34C759"))
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(entry.habitName)
-                    .font(.headline)
-                HStack(spacing: 4) {
-                    Image(systemName: "flame.fill")
-                        .foregroundStyle(entry.isCompleted ? Color(hex: "FF9500") : .gray)
-                    Text(String(localized: "home.day_streak") + " \(entry.streakDays)")
+                if let firstHabit = entry.habits.first {
+                    Text(firstHabit.name)
+                        .font(.headline)
+                    Text(firstHabit.isCompleted ? String(localized: "widget.completed") : String(localized: "widget.no_habit"))
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(firstHabit.isCompleted ? Color(hex: "34C759") : .secondary)
                 }
-                Text(entry.isCompleted ? String(localized: "widget.completed") : String(localized: "widget.no_habit"))
-                    .font(.caption)
-                    .foregroundStyle(entry.isCompleted ? Color(hex: "34C759") : .secondary)
             }
 
             Spacer()

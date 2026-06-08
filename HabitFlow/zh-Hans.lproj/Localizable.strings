@@ -53,3 +53,6 @@
 /* Days */
 "day.today" = "今天";
 "day.yesterday" = "昨天";
+
+/* Check-in */
+"checkin.count_today" = "今日已打卡 %d 次";
